@@ -70,7 +70,7 @@ try {
     await eventually(() => sandbox.count(legacy ? "markRoomAgentMissionFinished" : "finishRoomAgentSupervisorTurn") > completedBefore);
     await sandbox.env.sleep("1 second");
     await eventually(() => sandbox.count(legacy ? "settleRoomAgentBackgroundMission" : "prepareRoomAgentBackgroundContinuation") > settledBefore);
-    await sandbox.close(handle);
+    await sandbox.close(handle, { cancel: true });
     recordings.set(name, await sandbox.history(handle));
   }
   assert.equal(recordings.size, 9);
